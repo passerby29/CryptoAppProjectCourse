@@ -8,9 +8,7 @@ import com.example.cryptoapp.domain.CoinInfo
 import com.google.gson.Gson
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
+import java.util.*
 
 class CoinMapper {
 
@@ -70,7 +68,8 @@ class CoinMapper {
         return sdf.format(date)
     }
 
-    companion object{
+    companion object {
+
         const val BASE_IMAGE_URL = "https://cryptocompare.com"
     }
 }

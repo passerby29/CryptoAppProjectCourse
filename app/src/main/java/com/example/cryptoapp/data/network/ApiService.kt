@@ -1,7 +1,7 @@
 package com.example.cryptoapp.data.network
 
-import com.example.cryptoapp.data.models.dto.CoinNamesListDto
 import com.example.cryptoapp.data.models.dto.CoinInfoJsonContainerDto
+import com.example.cryptoapp.data.models.dto.CoinNamesListDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

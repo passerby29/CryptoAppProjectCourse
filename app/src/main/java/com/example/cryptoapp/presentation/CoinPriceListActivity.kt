@@ -22,7 +22,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         val coinInfoAdapter = CoinInfoAdapter(this)
         coinInfoAdapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinPriceInfo: CoinInfo) {
-                if (isOnePaneMode()){
+                if (isOnePaneMode()) {
                     launchDetailActivity(coinPriceInfo.fromSymbol)
                 } else {
                     launchDetailFragment(coinPriceInfo.fromSymbol)
@@ -39,7 +39,9 @@ class CoinPriceListActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchDetailActivity(fromSymbol: String){
+    private fun isOnePaneMode() = binding.coinFragmentContainer == null
+
+    private fun launchDetailActivity(fromSymbol: String) {
         val intent = CoinDetailActivity.newIntent(
             this@CoinPriceListActivity,
             fromSymbol
@@ -49,10 +51,10 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     private fun launchDetailFragment(fromSymbol: String) {
         supportFragmentManager.popBackStack()
-        supportFragmentManager.beginTransaction()
+        supportFragmentManager
+            .beginTransaction()
             .replace(R.id.coinFragmentContainer, CoinDetailFragment.newInstance(fromSymbol))
-            .addToBackStack(null).commit()
+            .addToBackStack(null)
+            .commit()
     }
-
-    private fun isOnePaneMode() = binding.coinFragmentContainer == null
 }
