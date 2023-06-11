@@ -28,10 +28,13 @@ class CoinPriceListActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-        binding.rvCoinPriceList.adapter = coinInfoAdapter
+        binding.rvCoinPriceList.apply {
+            adapter = coinInfoAdapter
+            itemAnimator = null
+        }
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this) {
-            coinInfoAdapter.coinInfoList = it
+            coinInfoAdapter.submitList(it)
         }
     }
 }
