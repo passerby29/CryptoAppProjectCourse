@@ -11,7 +11,7 @@ import com.example.cryptoapp.domain.CoinRepository
 import kotlinx.coroutines.delay
 
 class CoinRepositoryImpl(
-    private val application: Application
+    application: Application
 ) : CoinRepository {
 
     private val coinInfoDao = AppDatabase.getInstance(application).coinPriceInfoDao()
