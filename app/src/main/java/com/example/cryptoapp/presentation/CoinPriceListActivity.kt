@@ -3,6 +3,7 @@ package com.example.cryptoapp.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.cryptoapp.R
 import com.example.cryptoapp.databinding.ActivityCoinPrceListBinding
 import com.example.cryptoapp.domain.CoinInfo
 import com.example.cryptoapp.presentation.adapters.CoinInfoAdapter
@@ -21,11 +22,11 @@ class CoinPriceListActivity : AppCompatActivity() {
         val coinInfoAdapter = CoinInfoAdapter(this)
         coinInfoAdapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinPriceInfo: CoinInfo) {
-                val intent = CoinDetailActivity.newIntent(
-                    this@CoinPriceListActivity,
-                    coinPriceInfo.fromSymbol
-                )
-                startActivity(intent)
+                if (isOnePaneMode()){
+                    launchDetailActivity(coinPriceInfo.fromSymbol)
+                } else {
+                    launchDetailFragment(coinPriceInfo.fromSymbol)
+                }
             }
         }
         binding.rvCoinPriceList.apply {
@@ -37,4 +38,21 @@ class CoinPriceListActivity : AppCompatActivity() {
             coinInfoAdapter.submitList(it)
         }
     }
+
+    private fun launchDetailActivity(fromSymbol: String){
+        val intent = CoinDetailActivity.newIntent(
+            this@CoinPriceListActivity,
+            fromSymbol
+        )
+        startActivity(intent)
+    }
+
+    private fun launchDetailFragment(fromSymbol: String) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.coinFragmentContainer, CoinDetailFragment.newInstance(fromSymbol))
+            .addToBackStack(null).commit()
+    }
+
+    private fun isOnePaneMode() = binding.coinFragmentContainer == null
 }
